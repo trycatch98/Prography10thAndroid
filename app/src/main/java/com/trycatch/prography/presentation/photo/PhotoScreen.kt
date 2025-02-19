@@ -1,4 +1,4 @@
-package com.trycatch.prography.ui.presentation.photo
+package com.trycatch.prography.presentation.photo
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

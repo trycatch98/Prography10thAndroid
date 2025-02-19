@@ -5,8 +5,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.trycatch.prography.ui.presentation.main.MainRoute
-import com.trycatch.prography.ui.presentation.photo.PhotoRoute
+import com.trycatch.prography.presentation.main.MainRoute
+import com.trycatch.prography.presentation.photo.PhotoRoute
 
 @Composable
 fun PrographyNavHost(

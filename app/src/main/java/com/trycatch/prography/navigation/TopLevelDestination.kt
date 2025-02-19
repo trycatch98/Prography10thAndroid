@@ -2,8 +2,8 @@ package com.trycatch.prography.navigation
 
 import androidx.annotation.DrawableRes
 import com.trycatch.prography.ui.PrographyIcons
-import com.trycatch.prography.ui.presentation.main.MainRoute
-import com.trycatch.prography.ui.presentation.photo.PhotoRoute
+import com.trycatch.prography.presentation.main.MainRoute
+import com.trycatch.prography.presentation.photo.PhotoRoute
 
 enum class TopLevelDestination(
     @DrawableRes val icon: Int,
