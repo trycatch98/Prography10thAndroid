@@ -2,6 +2,7 @@ package com.trycatch.prography.presentation.detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,25 +39,30 @@ data class DetailRoute(
 @Composable
 fun DetailRoute(
     viewModel: DetailViewModel = hiltViewModel(),
+    onDismiss: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.sideEffects.collect { sideEffect ->
             when (sideEffect) {
-                DetailSideEffect.NavigateToBack -> {}
+                DetailSideEffect.NavigateToBack -> onDismiss()
             }
         }
     }
 
     DetailScreen(
-        uiState = uiState
+        uiState = uiState,
+        onBookmarkClick = viewModel::toggleBookmark,
+        onCloseClick = viewModel::navigateBack
     )
 }
 
 @Composable
 private fun DetailScreen(
     uiState: DetailUiState,
+    onBookmarkClick: () -> Unit,
+    onCloseClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -86,7 +92,8 @@ private fun DetailScreen(
                         width = 1.dp,
                         color = PrographyTheme.colorScheme.gray30,
                         shape = RoundedCornerShape(24.dp)
-                    ),
+                    )
+                    .clickable(onClick = onCloseClick),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -108,23 +115,39 @@ private fun DetailScreen(
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            Icon(
+            Box(
                 modifier = Modifier
-                    .size(20.dp),
-                painter = painterResource(PrographyIcons.Download),
-                tint = PrographyTheme.colorScheme.white,
-                contentDescription = "download"
-            )
+                    .size(40.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .size(20.dp),
+                    painter = painterResource(PrographyIcons.Download),
+                    tint = PrographyTheme.colorScheme.white,
+                    contentDescription = "download"
+                )
+            }
 
-            Spacer(modifier = Modifier.width(24.dp))
+            Spacer(modifier = Modifier.width(4.dp))
 
-            Icon(
+            Box(
                 modifier = Modifier
-                    .size(20.dp),
-                painter = painterResource(PrographyIcons.Bookmark),
-                tint = PrographyTheme.colorScheme.white,
-                contentDescription = "download"
-            )
+                    .size(40.dp)
+                    .clickable(onClick = onBookmarkClick),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .size(20.dp),
+                    painter = painterResource(PrographyIcons.Bookmark),
+                    tint = if (uiState.isBookmark)
+                        PrographyTheme.colorScheme.white
+                    else
+                        PrographyTheme.colorScheme.white.copy(alpha = 0.3f),
+                    contentDescription = "download",
+                )
+            }
         }
 
         Box(

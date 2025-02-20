@@ -36,7 +36,9 @@ fun PrographyNavHost(
                 usePlatformDefaultWidth = false
             )
         ) {
-            DetailRoute()
+            DetailRoute {
+                navController.popBackStack()
+            }
         }
     }
 }
