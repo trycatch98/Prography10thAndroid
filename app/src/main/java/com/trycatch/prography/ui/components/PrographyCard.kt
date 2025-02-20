@@ -94,9 +94,9 @@ fun PrographyCard(
                 Box(
                     modifier = Modifier
                         .size(72.dp)
+                        .clip(shape = RoundedCornerShape(36.dp))
                         .background(
                             color = PrographyTheme.colorScheme.brand,
-                            shape = RoundedCornerShape(36.dp)
                         )
                         .clickable(onClick = onBookmarkClick),
                     contentAlignment = Alignment.Center
@@ -117,6 +117,7 @@ fun PrographyCard(
                             color = PrographyTheme.colorScheme.gray30,
                             shape = RoundedCornerShape(36.dp)
                         )
+                        .clip(shape = RoundedCornerShape(36.dp))
                         .clickable(onClick = onDetailClick),
                     contentAlignment = Alignment.Center
                 ) {

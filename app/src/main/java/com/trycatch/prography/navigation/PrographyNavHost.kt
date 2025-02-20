@@ -28,7 +28,9 @@ fun PrographyNavHost(
         }
 
         composable<PhotoRoute> {
-            PhotoRoute()
+            PhotoRoute { id ->
+                navController.navigate(DetailRoute(id))
+            }
         }
 
         dialog<DetailRoute>(
