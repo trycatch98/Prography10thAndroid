@@ -1,5 +1,9 @@
 package com.trycatch.prography.data.repository
 
+import PhotoPagingSource
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.trycatch.prography.data.datasource.PhotoLocalDataSource
 import com.trycatch.prography.data.datasource.PhotoRemoteDataSource
 import com.trycatch.prography.data.model.BookmarkEntity
@@ -12,12 +16,15 @@ class PhotoRepositoryImpl @Inject constructor(
     private val photoRemoteDataSource: PhotoRemoteDataSource,
     private val photoPreferencesDataSource: PhotoLocalDataSource
 ): PhotoRepository {
-    override suspend fun getPhotos(
-        page: Int,
-        perPage: Int
-    ): Flow<List<PhotoEntity>> = flow {
-        emit(photoRemoteDataSource.getPhotos(page, perPage))
-    }
+    override fun getPhotos(): Flow<PagingData<PhotoEntity>> = Pager(
+        config = PagingConfig(
+            pageSize = 30,
+            enablePlaceholders = false
+        ),
+        pagingSourceFactory = {
+            PhotoPagingSource(photoRemoteDataSource)
+        }
+    ).flow
 
     override suspend fun getRandomPhotos(
         count: Int
