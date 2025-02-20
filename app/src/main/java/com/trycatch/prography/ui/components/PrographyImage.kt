@@ -102,7 +102,12 @@ private fun PrographyImage(
                     Modifier.height(maxHeight)
                 }
                 else {
-                    Modifier.aspectRatio(aspectRatio)
+                    Modifier.aspectRatio(
+                        if (aspectRatio.isNaN())
+                            1f
+                        else
+                            aspectRatio
+                    )
                 }
             )
             .clip(shape = RoundedCornerShape(10.dp))
