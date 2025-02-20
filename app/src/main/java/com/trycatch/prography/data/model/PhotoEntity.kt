@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PhotoEntity(
+    val id: String,
     val width: Int,
     val height: Int,
     private val description: String?,
