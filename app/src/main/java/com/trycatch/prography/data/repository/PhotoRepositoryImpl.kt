@@ -16,6 +16,11 @@ class PhotoRepositoryImpl @Inject constructor(
     private val photoRemoteDataSource: PhotoRemoteDataSource,
     private val photoPreferencesDataSource: PhotoLocalDataSource
 ): PhotoRepository {
+
+    override fun getPhoto(id: String): Flow<PhotoEntity> = flow {
+        emit(photoRemoteDataSource.getPhoto(id))
+    }
+
     override fun getPhotos(): Flow<PagingData<PhotoEntity>> = Pager(
         config = PagingConfig(
             pageSize = 30,

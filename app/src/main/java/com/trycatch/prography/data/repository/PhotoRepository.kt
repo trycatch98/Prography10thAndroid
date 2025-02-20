@@ -6,6 +6,8 @@ import com.trycatch.prography.data.model.PhotoEntity
 import kotlinx.coroutines.flow.Flow
 
 interface PhotoRepository {
+    fun getPhoto(id: String):Flow<PhotoEntity>
+
     fun getPhotos(): Flow<PagingData<PhotoEntity>>
 
     suspend fun getRandomPhotos(

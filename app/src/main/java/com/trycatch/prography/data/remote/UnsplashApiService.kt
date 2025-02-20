@@ -2,9 +2,15 @@ package com.trycatch.prography.data.remote
 
 import com.trycatch.prography.data.model.PhotoEntity
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface UnsplashApiService {
+    @GET("/photos/{id}")
+    suspend fun getPhoto(
+        @Path("id") id: String,
+    ): PhotoEntity
+
     @GET("/photos")
     suspend fun getPhotos(
         @Query("page") page: Int,
